@@ -1,14 +1,13 @@
 "use client";
 import React, { useState } from "react";
 import { useTranslations } from "next-intl";
-import { IoSearch } from "react-icons/io5";
 import Link from "next/link";
 import LanguageSwitcher from "../languages/index.jsx";
 import Button from "../button/index.jsx";
 import NavBar from "./navBar/index.jsx";
 import ThemeToggle from "../themeSwitcher/index.jsx";
-import "./styles.sass";
 import SearchBarDropdown from "../searchBar/index.jsx";
+import "./styles.sass";
 
 const Header = () => {
   const [burgerIsOpen, setBurgerIsOpen] = useState(false);
