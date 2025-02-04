@@ -1,0 +1,186 @@
+@use '../../styles/_typography' as typo
+.header
+    position: relative
+    width: 100%
+    background: transparent
+    transition: all 0.5s ease
+    border-bottom: 1px solid #fff
+    z-index: 6
+    .headerItems
+        display: flex
+        align-items: center
+        column-gap: 20px
+        justify-content: space-between
+        margin: 10px
+        @media(max-width: 865px)
+            height: 60px
+            margin: 0
+        .burgerBtnContainer
+            display: none
+            @media screen and (max-width: 865px)
+                display: flex
+                justify-content: center
+                width: 30px
+                z-index: 2
+            .burgerBtn
+                width: 22px
+                height: 24px
+                position: relative
+                &::before, &::after, span
+                    transition: all 0.3s ease 0s
+                    content: ""
+                    height: 2px
+                    background-color: #acaaaa
+                    position: absolute
+                    left: 0
+                    border-radius: 2px
+                    width: 100%
+                &::before
+                    top: 5px
+                span
+                    top: 50%
+                    transform: translateY(-2px)
+                &::after
+                    bottom: 6px
+            .burgerBtn.active
+                width: 20px
+                height: 20px
+                position: relative
+                &:before,
+                &:after
+                    left: 0
+                    right: 0
+                    bottom: 0
+                    top: 0
+                    margin: auto
+                    position: absolute
+                    width: 100%
+                    height: 1px
+                    background-color: #acaaaa
+                &:before
+                    transform: rotate(-45deg)
+                &::after
+                    transform: rotate(45deg)
+                span
+                    opacity: 0
+        .headerItem
+            display: flex
+            flex-direction: row
+            align-items: center
+            .headerLogo
+                display: flex
+                align-items: flex-end
+                flex-direction: row
+                column-gap: 13px
+                text-decoration: none
+                +typo.typography(20px, 600, var(--main-color))
+
+            .mobileOverlay
+                @media screen and (max-width: 865px)
+                    transform: translateX(-100%)
+                    position: fixed
+                    display: block
+                    top: 60px
+                    right: 0
+                    width: 100%
+                    height: 100%
+                    background: #00000042
+                    transition: all 0.5s ease
+                &.activeMenu
+                    transform: translateX(0%)
+            .nav
+                margin: 0 auto
+                transition: all 0.5s ease
+                .navActions
+                    display: none
+                @media screen and (max-width: 865px)
+                    transform: translateX(100%)
+                    position: fixed
+                    display: block
+                    top: 60px
+                    right: 0
+                    width: 50%
+                    height: 100%
+                    z-index: 1
+                    .navActions
+                        display: flex
+                        flex-direction: column
+                        row-gap: 10px
+                        padding: 0
+                        .languageSwitcher
+                            .switcher
+                                padding: 0
+                        .search
+                            display: flex
+                            align-items: center
+                            cursor: pointer
+                            column-gap: 5px
+                            transition: all 0.5s ease
+                            +typo.typography(18px, 600, var(--grey-color))
+                            &:hover
+                                color: var(--main-color)
+                    .navContainer
+                        position: absolute
+                        border-left: 1px solid var(--grey-color)
+                        right: 0
+                        height: calc(100dvh - 45px)
+                        width: 100%
+                        background: var(--bg-color)
+                        padding: 20px
+                        display: flex
+                        flex-direction: column
+                        justify-content: space-between
+                        row-gap: 30px
+                        .headerLogo
+                            display: flex
+                        .links
+                            display: flex
+                            flex-direction: column
+                            padding: 30px 0
+                            row-gap: 20px
+                            .navLink
+                                font-size: 16px
+                                font-weight: 600
+                                color: var(--grey-color)
+                                &:hover
+                                    color: var(--main-color)
+                .nav-box
+                    .headerLogo
+                        display: none
+                    @media screen and (max-width: 865px)
+                        display: flex
+                        flex-direction: column
+                        row-gap: 16px
+                .navLink
+                    +typo.typography(18px, 700 ,var(--grey-color))
+                    text-transform: uppercase
+                    text-decoration: none
+                    display: inline-block
+                    position: relative
+                    transition: 0.25s ease-out
+                    &:hover
+                        color: var(--main-color)
+                    @media screen and (max-width: 640px)
+                        font-size: 14px
+                .active
+                    color: #DAA50C
+                .navLink:not(:last-child)
+                    margin-right: 40px
+                    @media screen and (max-width: 1350px)
+                        margin-right: 20px
+                    @media screen and (max-width: 865px)
+                        margin-right: 0
+                &.activeMenu
+                    transform: translateX(0)
+        .headerButton
+            display: flex
+            align-items: center
+            column-gap: 40px
+            .contactUs
+                text-decoration: none
+            .headerSearch
+                @media screen and (max-width: 865px)
+                    display: none
+            .lang
+                @media screen and (max-width: 865px)
+                    display: none

@@ -1,0 +1,78 @@
+@use '../../styles/_typography' as typo
+@use '../../styles/_variables' as var
+:root
+    --main-color: #{map-get(var.$main-light, 'main')}
+    --bg-color: #{map-get(var.$main-light, 'whiteBg')}
+    --text-color: #{map-get(var.$main-light, 'textBlack')}
+    --grey-color: #{map-get(var.$main-light, 'grey')}
+    --secondary-color: #{map-get(var.$main-light, 'secondaryMain')}
+    --white: #{map-get(var.$main-light, 'white')}
+    --black: #{map-get(var.$main-light, 'black' )}
+
+.dark-theme
+    --main-color: #{map-get(var.$main-dark, 'main')}
+    --bg-color: #{map-get(var.$main-dark, 'whiteBg')}
+    --text-color: #{map-get(var.$main-dark, 'textBlack')}
+    --grey-color: #{map-get(var.$main-dark, 'grey')}
+    --secondary-color: #{map-get(var.$main-dark, 'secondaryMain')}
+    --white: #{map-get(var.$main-dark, 'white')}
+    --black: #{map-get(var.$main-dark, 'black' )}
+
+body
+    margin: 0
+    padding: 0
+    font-family: "Montserrat", serif
+    font-weight: 300
+    overflow-x: hidden
+    background-color: var(--bg-color)
+    color: var(--text-color)
+    transition: background 0.3s ease, color 0.3s ease
+
+*,
+*::before,
+*::after
+    box-sizing: border-box
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p
+    margin: 0
+
+ol,
+ul
+    padding: 0 20px
+
+a
+    text-decoration: none
+
+.container
+    max-width: 1920px
+    width: 100%
+    padding: 0 90px
+    margin: 0 auto
+    @media screen and (max-width: 1310px)
+        max-width: 1250px
+        padding: 0 50px
+    @media screen and (max-width: 1250px)
+        max-width: 1200px
+        padding: 0 20px
+
+.no-scroll
+    overflow: hidden
+
+::-webkit-scrollbar
+    width: 10px
+
+::-webkit-scrollbar-track
+    // background: map-get($main, 'lightBg')
+
+::-webkit-scrollbar-thumb
+    // background: map-get($main, 'main')
+    border-radius: 10px
+
+::-webkit-scrollbar-thumb:hover
+    // background: map-get($main, 'grey')
