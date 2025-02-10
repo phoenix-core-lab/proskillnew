@@ -1,20 +1,25 @@
-import AuthGuard from "@/components/AuthGuard";
+import AdminHeader from "@/components/header/admin-header";
 import AdminSidebar from "@/components/sidebar/AdminSidebar";
-import { getCurrentUser } from "@/lib/auth";
+import { UserRole } from "@/types";
+import { cookies, headers } from "next/headers";
+// import { getCurrentUser } from "@/lib/auth";
 
 export default async function AdminLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const user = await getCurrentUser();
-
+  const cookieStore = await cookies();
+  const role = cookieStore.get("userRole")?.value;
   return (
-    <AuthGuard role={user.role} path="/admin">
-      <div className="admin-layout">
-        <AdminSidebar role={user.role} />
-        <main>{children}</main>
+    <div className="flex h-screen overflow-hidden bg-gray-50">
+      <AdminSidebar role={role as UserRole} />
+      <div className="flex-1 flex flex-col">
+        <AdminHeader />
+        <main className="flex-1 overflow-y-auto">
+          <div className="">{children}</div>
+        </main>
       </div>
-    </AuthGuard>
+    </div>
   );
 }

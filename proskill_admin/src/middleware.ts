@@ -7,36 +7,45 @@ export async function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname;
 
   // Исключаем запросы к статическим файлам
-  if (path.startsWith("/_next") || path.startsWith("/static") || path.startsWith("/public")) {
+  if (
+    path.startsWith("/_next") ||
+    path.startsWith("/static") ||
+    path.startsWith("/public")
+  ) {
     return NextResponse.next();
   }
 
   // Разрешенные страницы без авторизации
-  const publicRoutes = ["/login", "/signup", "/public"];
+  const publicRoutes = ["/login"];
 
-  // Если роли нет и страница не публичная — отказываем в доступе
+  // Если роли нет и пользователь не на странице /login — редиректим на login
   if (!role) {
     if (!publicRoutes.includes(path)) {
-      return new NextResponse(
-        JSON.stringify({ message: "Unauthorized" }),
-        { status: 401, headers: { "Content-Type": "application/json" } }
-      );
+      return NextResponse.redirect(new URL("/login", request.url));
     }
     return NextResponse.next();
   }
 
-  // Проверка прав доступа
-  const isAllowed = rolesPermissions[role]?.access.some(
-    (pattern) =>
+  // Проверка, что `rolesPermissions[role]` существует
+  if (!rolesPermissions[role]) {
+    return new NextResponse(JSON.stringify({ message: "Forbidden" }), {
+      status: 403,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+
+  // Проверка прав доступа (явно указываем тип для pattern)
+  const isAllowed = rolesPermissions[role].access.some(
+    (pattern: string) =>
       pattern === path ||
       (pattern.endsWith("*") && path.startsWith(pattern.slice(0, -1)))
   );
 
   if (!isAllowed) {
-    return new NextResponse(
-      JSON.stringify({ message: "Forbidden" }),
-      { status: 403, headers: { "Content-Type": "application/json" } }
-    );
+    return new NextResponse(JSON.stringify({ message: "Forbidden" }), {
+      status: 403,
+      headers: { "Content-Type": "application/json" },
+    });
   }
 
   return NextResponse.next();

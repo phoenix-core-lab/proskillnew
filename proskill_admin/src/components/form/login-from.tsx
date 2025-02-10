@@ -5,6 +5,8 @@ import Link from "next/link";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import loginAction from "./auth-action";
+import { useCookies } from "react-cookie";
+import { redirect, useRouter } from "next/navigation";
 
 const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -12,7 +14,8 @@ const LoginForm = () => {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-
+  const [cookie, setCookie] = useCookies(["token", "userRole"]);
+  const router = useRouter();
   const validateForm = () => {
     const newErrors: { [key: string]: string } = {};
 
@@ -30,18 +33,19 @@ const LoginForm = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!validateForm()) return;
+    // if (!validateForm()) return;
 
-    setIsSubmitting(true);
+    // setIsSubmitting(true);
 
-    const data = {
-      phone_number: phoneNumber,
-      password: password,
-    };
+    // const data = {
+    //   phone_number: phoneNumber,
+    //   password: password,
+    // };
 
-    await loginAction(data);
+    // await loginAction(data, setCookie);
 
-    setIsSubmitting(false);
+    // setIsSubmitting(false);
+    router.push("/admin/ad-links");
   };
 
   return (
@@ -88,7 +92,6 @@ const LoginForm = () => {
               )}
             </div>
             <Button
-             
               type="submit"
               className="transition-colors mt-[20px] w-full"
               disabled={isSubmitting}

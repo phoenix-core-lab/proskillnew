@@ -1,19 +1,26 @@
-import AuthGuard from '@/components/AuthGuard';
-import { getCurrentUser } from '@/lib/auth';
+// import { getCurrentUser } from "@/lib/auth";
+import AdminHeader from "@/components/header/admin-header";
+import AdminSidebar from "@/components/sidebar/AdminSidebar";
+import { UserRole } from "@/types";
+import { cookies } from "next/headers";
 
 export default async function SupplierLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const user = await getCurrentUser();
+  const cookieStore = await cookies();
+  const role = cookieStore.get("userRole")?.value;
 
   return (
-    <AuthGuard role={user.role} path="/supplier-admin">
-      <div className="supplier-layout">
-        {/* <SupplierDashboard role={user.role} /> */}
-        <main>{children}</main>
+    <div className="flex h-screen overflow-hidden bg-gray-50">
+      <AdminSidebar role={role as UserRole} />
+      <div className="flex-1 flex flex-col">
+        <AdminHeader />
+        <main className="flex-1 overflow-y-auto">
+          <div className="">{children}</div>
+        </main>
       </div>
-    </AuthGuard>
+    </div>
   );
 }

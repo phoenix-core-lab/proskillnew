@@ -1,12 +1,21 @@
 export const rolesPermissions = {
   admin: {
-    access: ["/admin/*"],
+    access: [
+      "/admin/*",
+      "/admin/supplier-requests-courses",
+      "/admin/supplier-request-library",
+      "/admin/supplier-requests-articles",
+      "/admin/statistic",
+    ],
   },
   content_manager: {
     access: [
       "/admin/ad-links",
       "/admin/course-categories",
       "/admin/courses",
+      "/admin/courses-module",
+      "/admin/courses-lesson",
+      "/admin/courses-test",
       "/admin/articles",
       "/admin/library",
     ],
@@ -17,6 +26,9 @@ export const rolesPermissions = {
   supplier: {
     access: [
       "/supplier-admin/courses",
+      "/supplier-admin/courses-module",
+      "/supplier-admin/courses-lesson",
+      "/supplier-admin/courses-test",
       "/supplier-admin/articles",
       "/supplier-admin/library",
       "/supplier-admin/purchase-stats",
