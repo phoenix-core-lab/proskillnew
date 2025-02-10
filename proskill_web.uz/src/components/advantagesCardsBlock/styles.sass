@@ -1,0 +1,62 @@
+@use '../../styles/_typography' as typo
+.advantagesCardsBlock
+    background: transparent
+    padding: 30px 0
+    .advantagesCardsContainer
+        display: flex
+        align-items: center
+        justify-content: center
+        column-gap: 30px
+        @media screen and (max-width: 1250px)
+            column-gap: 20px
+        @media screen and (max-width: 865px)
+            flex-wrap: wrap
+            row-gap: 10px
+        .advantagesCard
+            width: 100%
+            padding: 40px
+            border: 1px solid var(--secondary-color)
+            background: var(--white)
+            display: flex
+            flex-direction: column
+            row-gap: 20px
+            @media screen and (max-width: 1250px)
+                padding: 20px
+            @media screen and (max-width: 865px)
+                row-gap: 10px
+            .cardIcon
+                width: 72px
+                height: 72px
+                display: flex
+                align-items: center
+                justify-content: center
+                border-radius: 50px
+                background: var(--secondary-color)
+                @media screen and (max-width: 1250px)
+                    width: 50px
+                    height: 50px
+                svg
+                    font-size: 32px
+                    color: var(--white)
+            .cardTitle
+                .title
+                    +typo.typography(24px, 600 , var(--text-color))
+                    @media screen and (max-width: 865px)
+                        font-size: 20px
+            .carLine
+                position: relative
+                display: block
+                &::after
+                    content: ""
+                    position: absolute
+                    top: 0
+                    left: 0
+                    display: block
+                    width: 50px
+                    height: 1px
+                    color: var(--secondary-color)
+                    background: var(--secondary-color)
+            .cardText
+                .text
+                    line-height: 20px
+                    +typo.typography(14px, 400 , var(--grey-color))
